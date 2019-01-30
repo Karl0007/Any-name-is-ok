@@ -228,6 +228,8 @@
     <Compile Include="Assets\Game\Scrips\Player\Player.cs" />
     <Compile Include="Assets\Game\Scrips\Player\PlayerView.cs" />
     <Compile Include="Assets\Game\Scrips\ScriptableObjects\AllSkills.cs" />
+    <Compile Include="Assets\Game\Scrips\ScriptableObjects\BuffData.cs" />
+    <Compile Include="Assets\Game\Scrips\ScriptableObjects\CharacterDataS.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\Skill.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\SkillView.cs" />
     <Compile Include="Assets\Game\Scrips\Utils\EnumUtils.cs" />

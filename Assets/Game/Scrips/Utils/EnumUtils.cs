@@ -29,6 +29,7 @@ namespace EnumUtils
 		Blood,
 		Freeze,
 		PrePoison,
+		Poison,
 		NoBuff,
 		None
 	}
@@ -58,5 +59,11 @@ namespace EnumUtils
 		AddMP,
 		Trap,
 		None
+	}
+
+	public enum CostMPType
+	{
+		OneTime,
+		ByLength
 	}
 }

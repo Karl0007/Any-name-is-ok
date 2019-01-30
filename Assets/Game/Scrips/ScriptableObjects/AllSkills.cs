@@ -37,6 +37,7 @@ public class SkillInfo {
 	public BuffClass Buff;
 	public DebuffClass Debuff ;
 	public int DeBuffTime;
+	public CostMPType CostMPType;
 	public ToolsOnMap ToosOnMap ;
 	public Character Character ;
 }
