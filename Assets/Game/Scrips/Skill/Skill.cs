@@ -9,18 +9,34 @@ public class Skill : MonoBehaviour
 	private SkillView m_Skillview;
 	public SkillInfo m_Skill;
 	public AllSkills m_AllSkills;
-	public BuffData m_BuffData;
+	public  BuffData m_BuffData;
 
 	private Player User { get; set; }
-	private int OperatorNum { get; set; }
-	private List<int> AttackRange = new List<int>();
-	private List<int> MoveRange = new List<int>();
+	public int OperatorNum { get; set; }
+	public List<int> AttackRange = new List<int>();
+	public List<int> MoveRange = new List<int>();
 	private int PositionAfterUse { get; set; }
 	private int Direction { get; set; }
+
+	public Skill Clone()
+	{
+		Skill tmp = new Skill
+		{
+			m_AllSkills = m_AllSkills,
+			m_BuffData = m_BuffData,
+			m_Skill = m_Skill,
+			AttackRange = AttackRange,
+			MoveRange = MoveRange
+		};
+		return tmp;
+	}
 
 	// Use this for initialization
 	void Start()
 	{
+		Debug.Log(m_AllSkills.SkillInfos[0].Name);
+		Debug.Log("++++"+m_BuffData.DAFData);
+		//Debug.Log(m_BuffData.BloodData);
 		//m_Skill = m_AllSkills.SkillInfos[0];
 		//Debug.Log(m_Skill.Name);
 	}
@@ -44,7 +60,7 @@ public class Skill : MonoBehaviour
 		return -1;
 	}
 
-	public void IntiSkill(Player _player, int _num)
+	public bool IntiSkill(Player _player, int _num)
 	{
 		User = _player;
 		OperatorNum = _num;
@@ -54,17 +70,50 @@ public class Skill : MonoBehaviour
 		if (_num < _player.m_Position) Direction = -1;
 		AttackRange.Clear();
 		MoveRange.Clear();
-		PreCheck();
+		return PreCheck();
 		//Debug.Log(OperatorNum);
 	}
 
-
-	private void PreCheck()
+	public void GetRange(Player _player,int _num)
 	{
-		//while (Mathf.Abs(OperatorNum) * m_Skill.CostMP > User.m_MP)
+		if (!IntiSkill(_player, _num))
+		{
+			if (GameManager.Instance.m_GameState == GameState.GetP1InputOper)
+				GameManager.Instance.m_GameState = GameState.GetP1InputSkill;
+			if (GameManager.Instance.m_GameState == GameState.GetP2InputOper)
+				GameManager.Instance.m_GameState = GameState.GetP2InputSkill;
+
+		}
+		else
+		{
+			GetMoveRange();
+			GetAttackRange();
+		}
+
+	}
+
+	private bool PreCheck()
+	{
+		if (m_Skill.CostMPType == CostMPType.OneTime && User.m_MP < m_Skill.CostMP) return false;
+		if (m_Skill.CostMPType == CostMPType.ByLength)
+		{
+			bool tmp = true;
+			while (Mathf.Abs(OperatorNum - User.m_Position) * m_Skill.CostMP > User.m_MP && OperatorNum != User.m_Position)
+			{
+				tmp = false;
+				OperatorNum -= Direction;
+			}
+			if (OperatorNum == User.m_Position) return tmp || m_Skill.Name == "移动";
+		}
+		//if (m_Skill.AttackType == AttackType.LastBlock)
+		//{
+			//OperatorNum += Direction;
+		//}
+		//if (m_Skill.AttackType == AttackType.NextBlock)
 		//{
 		//	OperatorNum -= Direction;
 		//}
+		//if (m_Skill.cos)
 		if (m_Skill.MoveType == MoveType.Flash && OperatorNum == User.Opponent.m_Position)
 		{
 			OperatorNum -= Direction;
@@ -79,8 +128,35 @@ public class Skill : MonoBehaviour
 		{
 			OperatorNum = User.Opponent.m_Position - Direction;
 		}
-
+		return true;
 		
+	}
+
+	private void GetMoveRange()
+	{
+		switch (m_Skill.MoveType)
+		{
+			case MoveType.Roll:
+			case MoveType.Move:
+				PositionAfterUse = OperatorNum;
+				for (int i = User.m_Position; i != OperatorNum; i += Direction)
+				{
+					MoveRange.Add(i);
+				}
+				MoveRange.Add(OperatorNum);
+				//User.m_Position = PositionAfterUse;
+				break;
+			case MoveType.Flash:
+				PositionAfterUse = OperatorNum;
+				MoveRange.Add(PositionAfterUse);
+				MoveRange.Add(User.m_Position);
+				//User.m_Position = PositionAfterUse;
+				break;
+			case MoveType.None:
+				PositionAfterUse = User.m_Position;
+				MoveRange.Add(User.m_Position);
+				break;
+		}
 	}
 
 	private void MoveWork()//移动动画
@@ -94,6 +170,7 @@ public class Skill : MonoBehaviour
 				{
 					MoveRange.Add(i);
 				}
+				MoveRange.Add(OperatorNum);
 				User.m_Position = PositionAfterUse;
 				break;
 			case MoveType.Flash:
@@ -104,6 +181,7 @@ public class Skill : MonoBehaviour
 				break;
 			case MoveType.None:
 				PositionAfterUse = User.m_Position;
+				MoveRange.Add(User.m_Position);
 				break;
 		}
 		//可以做地图物品判定
@@ -114,12 +192,12 @@ public class Skill : MonoBehaviour
 
 	private void BuffWork()//增加BUFF
 	{
-		BuffClass tmp = new BuffClass();
-		tmp = m_Skill.Buff;
-		User.m_Buff.Add(tmp); //克隆buff？？
+		//BuffClass tmp = new BuffClass();
+		//tmp = m_Skill.Buff;
+		if (m_Skill.Buff.Type != Buff.None)User.m_Buff.Add(m_Skill.Buff.Clone()); //克隆buff？？
 	}
 
-	private void AttackWork()//判定攻击范围
+	private void GetAttackRange()
 	{
 		switch (m_Skill.AttackType) //判定攻击范围
 		{
@@ -127,16 +205,17 @@ public class Skill : MonoBehaviour
 				AttackRange.Add(OperatorNum);
 				break;
 			case AttackType.NextBlock:
-				AttackRange.Add(PositionAfterUse + Direction);
+				if (InRange(PositionAfterUse + Direction)) AttackRange.Add(PositionAfterUse + Direction);
 				break;
 			case AttackType.LastBlock:
-				AttackRange.Add(PositionAfterUse - Direction);
+				if (InRange(PositionAfterUse - Direction)) AttackRange.Add(PositionAfterUse - Direction);
 				break;
 			case AttackType.RangeFromPosToChoose:
 				for (int i = User.m_Position; i != OperatorNum; i += Direction)
 				{
 					AttackRange.Add(i);
 				}
+				AttackRange.Add(OperatorNum);
 				break;
 			case AttackType.ToMyself:
 				break;
@@ -146,13 +225,11 @@ public class Skill : MonoBehaviour
 			case AttackType.None:
 				break;
 		}
-		if (AttackRange.Count>0)Debug.Log(AttackRange[0]);
 	}
 
-
-	private void DeBuffWork()//伤害生效 增加Debuff
+	private void AttackWork()//判定攻击范围
 	{
-		//if (m_Skill.Attack == 0) return; //非伤害技能
+		GetAttackRange();
 		if (!AttackRange.Exists((int _x) => _x == User.Opponent.m_Position)) return; //技能miss
 
 		float My_Co = 0, Op_Co = -1; //伤害系数
@@ -213,25 +290,15 @@ public class Skill : MonoBehaviour
 		User.Opponent.m_HP += m_Skill.Attack * Op_Co;
 		User.m_HP += m_Skill.Attack * My_Co;
 
-		if (User.Opponent.FindSetBuff(DeBuff.Blood) > 0)
-		{
-			User.Opponent.m_HP -= m_BuffData.BloodData;//流血系数
-		}
-
-		if (User.Opponent.FindSetBuff(Buff.CantDie) > 0 && User.Opponent.m_HP <= 0)
-		{
-			User.Opponent.m_HP = 1; //不死buff处理
-		}
-
 		switch (m_Skill.Debuff.Type)
 		{
 			case DeBuff.Dizzy:
 			case DeBuff.Freeze:
 			case DeBuff.Blood:
 			case DeBuff.PrePoison:
-				DebuffClass tmp = new DebuffClass();
-				tmp = m_Skill.Debuff;
-				User.Opponent.m_Debuff.Add(tmp); //克隆buff？？
+				//DebuffClass tmp = new DebuffClass();
+				//tmp = m_Skill.Debuff;
+				User.Opponent.m_Debuff.Add(m_Skill.Debuff.Clone()); //克隆buff？？
 				break;
 			case DeBuff.Poison:
 				break;
@@ -239,8 +306,28 @@ public class Skill : MonoBehaviour
 				User.Opponent.m_Buff.Clear();
 				break;
 			case DeBuff.None:
-				break; 
+				break;
 		}
+		//if (AttackRange.Count>0)Debug.Log(AttackRange[0]);
+	}
+
+
+	private void DeBuffWork()//伤害生效 增加Debuff
+	{
+		//if (m_Skill.Attack == 0) return; //非伤害技能
+
+		//Debug.Log(m_BuffData.BloodData);
+		if (User.Opponent.FindSetBuff(DeBuff.Blood) > 0)
+		{
+			User.Opponent.m_HP -= m_BuffData.BloodData;//流血系数
+			Debug.Log("流血造成伤害");
+		}
+		if (User.Opponent.FindSetBuff(Buff.CantDie) > 0 && User.Opponent.m_HP <= 0)
+		{
+			User.Opponent.m_HP = 1; //不死buff处理
+			Debug.Log("坚毅不倒");
+		}
+		//Debug.Log(User.Opponent.FindSetBuff(DeBuff.Blood));
 
 	}
 
@@ -272,6 +359,10 @@ public class Skill : MonoBehaviour
 		ToolsWork();
 	}
 
+	private bool InRange(int x)
+	{
+		return (x >= 1 && x <= 14);
+	}
 
 	//public void PrepareSkill(Player _player, int _x)
 	//{

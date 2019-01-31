@@ -223,8 +223,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Game\Scrips\Manager\GameManager.cs" />
+    <Compile Include="Assets\Game\Scrips\Manager\InputManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\PlayerManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\SkillManager.cs" />
+    <Compile Include="Assets\Game\Scrips\Manager\UIManager.cs" />
     <Compile Include="Assets\Game\Scrips\Player\Player.cs" />
     <Compile Include="Assets\Game\Scrips\Player\PlayerView.cs" />
     <Compile Include="Assets\Game\Scrips\ScriptableObjects\AllSkills.cs" />
@@ -232,7 +235,10 @@
     <Compile Include="Assets\Game\Scrips\ScriptableObjects\CharacterDataS.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\Skill.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\SkillView.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\OperSelect.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\SkillSelect.cs" />
     <Compile Include="Assets\Game\Scrips\Utils\EnumUtils.cs" />
+    <Compile Include="Assets\Game\Scrips\Utils\MData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

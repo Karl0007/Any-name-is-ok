@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 	public float m_Attack { get; set; }
 	public float m_MP_RE { get; set; }
 	public int m_Position { get; set; }
-	public int m_ID { get; private set; }
+	public int m_ID { get; set; }
 	public List<BuffClass> m_Buff = new List<BuffClass>();
 	public List<DebuffClass> m_Debuff = new List<DebuffClass>();
 	public List<Skill> m_Skills = new List<Skill>();
@@ -40,6 +40,12 @@ public class Player : MonoBehaviour {
 
 	public void UseSkill(int _skill,int _oper)
 	{
+		if (FindSetBuff(DeBuff.Dizzy)>0 || FindSetBuff(DeBuff.Freeze)>0)
+		{
+			Debug.Log("被控制无法行动");
+			return;
+		}
+		Debug.Log("行动");
 		m_Skills[_skill].IntiSkill(this,_oper);
 		m_Skills[_skill].UseSkill();
 		MoveToPosition();
@@ -48,7 +54,6 @@ public class Player : MonoBehaviour {
 	public void MoveToPosition()
 	{
 		M_Player.transform.position = new Vector3(m_Position - 7,0,0);
-		debug_show();
 	}
 
 	public int FindSetBuff(Buff _buff, int _set = -1)
@@ -81,12 +86,6 @@ public class Player : MonoBehaviour {
 
 
 	//DEBUG
-	public GameObject debug_ui;
-	void debug_show()
-	{
-		debug_ui = GameObject.Find("Text");
-		debug_ui.GetComponent<UnityEngine.UI.Text>().text = "HP" + m_HP + "/" + m_HP_MAX + "  " + "MP" + m_MP + "/" + m_MP_MAX + "\n"; 
-	}
 
 	//DEBUG
 }

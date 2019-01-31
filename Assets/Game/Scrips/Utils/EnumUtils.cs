@@ -6,64 +6,74 @@ namespace EnumUtils
 {
 	public enum Character
 	{
+		None,
 		Warrior,
 		Mage,
 		Assassin,
-		None
 	}
 
 	public enum Buff
 	{
+		None,
 		CantControlled,
 		DefendAndAttack,
 		CantDie,
 		Hide,
 		DoubleHarm,
 		HpSucking,
-		None
 	}
 
 	public enum DeBuff
 	{
+		None,
 		Dizzy,
 		Blood,
 		Freeze,
 		PrePoison,
 		Poison,
-		NoBuff,
-		None
+		NoBuff
 	}
 
 	public enum MoveType
 	{
+		None,
 		Move,
 		Flash,
 		Roll,
-		None
 	}
 
 	public enum AttackType
 	{
+		None,
 		PointOfChoose,
 		NextBlock,
 		LastBlock,
 		RangeFromPosToChoose,
 		ToMyself,
-		ToOpponent,
-		None
+		ToOpponent
 	}
 
 	public enum ToolsOnMap
 	{
+		None,
 		AddHP,
 		AddMP,
-		Trap,
-		None
+		Trap
 	}
 
 	public enum CostMPType
 	{
 		OneTime,
 		ByLength
+	}
+
+	public enum GameState
+	{
+		GetP1InputSkill,
+		GetP1InputOper,
+		GetP2InputSkill,
+		GetP2InputOper,
+		WorkInput,
+		GetResult
 	}
 }

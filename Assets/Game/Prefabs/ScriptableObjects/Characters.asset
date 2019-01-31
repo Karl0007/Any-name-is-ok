@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Name: Characters
   m_EditorClassIdentifier: 
   CharacterInfo:
-  - Type: 0
-    HP: 200
-    MP: 100
-    Speed: 1
-    RE_MP: 10
-    Attack: 10
   - Type: 1
-    HP: 100
+    HP: 150
     MP: 100
     Speed: 2
     RE_MP: 10
-    Attack: 5
+    Attack: 10
   - Type: 2
-    HP: 0
-    MP: 0
-    Speed: 0
-    RE_MP: 0
-    Attack: 0
+    HP: 120
+    MP: 120
+    Speed: 2.5
+    RE_MP: 10
+    Attack: 5
+  - Type: 3
+    HP: 90
+    MP: 90
+    Speed: 3
+    RE_MP: 15
+    Attack: 10
