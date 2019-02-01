@@ -36,11 +36,50 @@ public class PlayerManager : MonoBehaviour {
 
 	public void InitPlayerInfo(Character P1,Character P2)
 	{
+		Debug.Log(EffectManager.Instance.x);
 		m_Players = new Player[2];
 		m_Players[0] = new Player();
 		m_Players[1] = new Player();
 		m_Players[0].M_Player = GameObject.Find("Cube");
 		m_Players[1].M_Player = GameObject.Find("Sphere");
+		m_Players[0].M_Player.AddComponent<PlayerView>();
+		m_Players[1].M_Player.AddComponent<PlayerView>();
+		m_Players[0].m_playerView = m_Players[0].M_Player.GetComponent<PlayerView>();
+		m_Players[1].m_playerView = m_Players[1].M_Player.GetComponent<PlayerView>();
+		m_Players[1].m_playerView.startplay = false;
+		m_Players[0].m_playerView.startplay = false;
+
+
+		if(P2 == Character.Assassin)
+		{
+			GameObject.FindGameObjectWithTag("M0").SetActive(false);
+			GameObject.FindGameObjectWithTag("W0").SetActive(false);
+		}
+		if (P2 == Character.Mage)
+		{
+			GameObject.FindGameObjectWithTag("W0").SetActive(false);
+			GameObject.FindGameObjectWithTag("A0").SetActive(false);
+		}
+		if (P2 == Character.Warrior)
+		{
+			GameObject.FindGameObjectWithTag("M0").SetActive(false);
+			GameObject.FindGameObjectWithTag("A0").SetActive(false);
+		}
+		if (P1 == Character.Assassin)
+		{
+			GameObject.FindGameObjectWithTag("M1").SetActive(false);
+			GameObject.FindGameObjectWithTag("W1").SetActive(false);
+		}
+		if (P1 == Character.Mage)
+		{
+			GameObject.FindGameObjectWithTag("W1").SetActive(false);
+			GameObject.FindGameObjectWithTag("A1").SetActive(false);
+		}
+		if (P1 == Character.Warrior)
+		{
+			GameObject.FindGameObjectWithTag("M1").SetActive(false);
+			GameObject.FindGameObjectWithTag("A1").SetActive(false);
+		}
 		m_Players[0].Opponent = m_Players[1];
 		m_Players[1].Opponent = m_Players[0];
 		foreach (var i in m_CharacterData.CharacterInfo)
@@ -54,7 +93,7 @@ public class PlayerManager : MonoBehaviour {
 				m_Players[0].m_MP = m_Players[0].m_MP_MAX = i.MP;
 				m_Players[0].m_MP_RE = i.RE_MP;
 				m_Players[0].m_Speed = i.Speed;
-				m_Players[0].m_Position = 5;
+				m_Players[0].m_Position = 1;
 			}
 			if (P2 == i.Type)
 			{
@@ -65,7 +104,7 @@ public class PlayerManager : MonoBehaviour {
 				m_Players[1].m_MP = m_Players[1].m_MP_MAX = i.MP;
 				m_Players[1].m_MP_RE = i.RE_MP;
 				m_Players[1].m_Speed = i.Speed;
-				m_Players[1].m_Position = 9;
+				m_Players[1].m_Position = 14;
 			}
 		}
 		foreach (var i in m_AllSkills.SkillInfos)
@@ -75,7 +114,7 @@ public class PlayerManager : MonoBehaviour {
 				{
 					Skill tmpskill = GameManager.Instance.GetComponent<Skill>().Clone();
 					tmpskill.m_Skill = i;
-					Debug.Log(j.m_HP);
+					//Debug.Log(j.m_HP);
 					j.m_Skills.Add(tmpskill);
 				}
 		}

@@ -74,6 +74,9 @@ namespace EnumUtils
 		GetP2InputSkill,
 		GetP2InputOper,
 		WorkInput,
-		GetResult
+		GetResult,
+		P1Playing,
+		P2Playing,
+		Done
 	}
 }

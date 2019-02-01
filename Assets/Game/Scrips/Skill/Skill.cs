@@ -34,8 +34,8 @@ public class Skill : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		Debug.Log(m_AllSkills.SkillInfos[0].Name);
-		Debug.Log("++++"+m_BuffData.DAFData);
+		//Debug.Log(m_AllSkills.SkillInfos[0].Name);
+		//Debug.Log("++++"+m_BuffData.DAFData);
 		//Debug.Log(m_BuffData.BloodData);
 		//m_Skill = m_AllSkills.SkillInfos[0];
 		//Debug.Log(m_Skill.Name);
@@ -65,7 +65,7 @@ public class Skill : MonoBehaviour
 		User = _player;
 		OperatorNum = _num;
 		//AttackRange = 
-		if (_num == _player.m_Position) Direction = 0;
+		//if (_num == _player.m_Position) Direction = 0;
 		if (_num > _player.m_Position) Direction = 1;
 		if (_num < _player.m_Position) Direction = -1;
 		AttackRange.Clear();
@@ -195,6 +195,18 @@ public class Skill : MonoBehaviour
 		//BuffClass tmp = new BuffClass();
 		//tmp = m_Skill.Buff;
 		if (m_Skill.Buff.Type != Buff.None)User.m_Buff.Add(m_Skill.Buff.Clone()); //克隆buff？？
+		switch (m_Skill.Buff.Type)
+		{
+			case Buff.CantDie:
+				User.cantdie.GetComponent<ParticleSystem>().Play();
+				break;
+			case Buff.DefendAndAttack:
+				User.defend.GetComponent<ParticleSystem>().Play();
+				break;
+			case Buff.DoubleHarm:
+				User.doubleattack.GetComponent<ParticleSystem>().Play();
+				break;
+		}
 	}
 
 	private void GetAttackRange()
@@ -230,8 +242,31 @@ public class Skill : MonoBehaviour
 	private void AttackWork()//判定攻击范围
 	{
 		GetAttackRange();
-		if (!AttackRange.Exists((int _x) => _x == User.Opponent.m_Position)) return; //技能miss
+		if (!AttackRange.Exists((int _x) => _x == User.Opponent.m_Position))
+		{
+			if(m_Skill.AttackType!= AttackType.None)UIManager.Instance.AddMessage("MISS！");
+			AudioManager.Instance.PlayEffect("瞬移");
+			return; //技能miss
+		}
+		else
+		{
+			switch (User.m_CharacterType)
+			{
+				case Character.None:
+					break;
+				case Character.Warrior:
+					AudioManager.Instance.PlayEffect("流血攻击");
+					break;
+				case Character.Mage:
+					AudioManager.Instance.PlayEffect("法术");
+					break;
+				case Character.Assassin:
+					AudioManager.Instance.PlayEffect("刺客");
+					break;
+			}
 
+		}
+		UIManager.Instance.AddMessage("技能命中了！");
 		float My_Co = 0, Op_Co = -1; //伤害系数
 
 		foreach (var i in User.m_Buff) //己方buff
@@ -248,6 +283,7 @@ public class Skill : MonoBehaviour
 					break;
 				case Buff.DoubleHarm:
 					Op_Co *= m_BuffData.DoubleHarmData; // 双倍伤害
+					UIManager.Instance.AddMessage("P"+(User.m_ID+1)+"打出了双倍伤害！");
 					break;
 				case Buff.HpSucking:
 					My_Co = m_BuffData.HpSuckingData; //吸血系数
@@ -265,6 +301,7 @@ public class Skill : MonoBehaviour
 					break;
 				case Buff.DefendAndAttack:
 					//防守反击成功
+					UIManager.Instance.AddMessage("P" + (User.Opponent.m_ID+1) + "防守反击成功！");
 					My_Co = Op_Co;
 					Op_Co = 0;
 					break;
@@ -308,6 +345,18 @@ public class Skill : MonoBehaviour
 			case DeBuff.None:
 				break;
 		}
+		switch (m_Skill.Debuff.Type)
+		{
+			case DeBuff.Dizzy:
+				User.Opponent.dizzy.GetComponent<ParticleSystem>().Play();
+				break;
+			case DeBuff.Blood:
+				User.Opponent.blood.GetComponent<ParticleSystem>().Play();
+				break;
+			case DeBuff.PrePoison:
+				User.Opponent.poison.GetComponent<ParticleSystem>().Play();
+				break;
+		}
 		//if (AttackRange.Count>0)Debug.Log(AttackRange[0]);
 	}
 
@@ -320,11 +369,13 @@ public class Skill : MonoBehaviour
 		if (User.Opponent.FindSetBuff(DeBuff.Blood) > 0)
 		{
 			User.Opponent.m_HP -= m_BuffData.BloodData;//流血系数
+			UIManager.Instance.AddMessage("P" + (User.Opponent.m_ID + 1) + "正在流血 持续受到伤害！");
 			Debug.Log("流血造成伤害");
 		}
 		if (User.Opponent.FindSetBuff(Buff.CantDie) > 0 && User.Opponent.m_HP <= 0)
 		{
 			User.Opponent.m_HP = 1; //不死buff处理
+			UIManager.Instance.AddMessage("P" + (User.Opponent.m_ID + 1) + "不死之身触发了！");
 			Debug.Log("坚毅不倒");
 		}
 		//Debug.Log(User.Opponent.FindSetBuff(DeBuff.Blood));
@@ -344,6 +395,7 @@ public class Skill : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log(m_Skill.CostMP);
 			User.m_MP -= m_Skill.CostMP;
 		}
 	}

@@ -20,13 +20,13 @@ MonoBehaviour:
     Attack: 10
   - Type: 2
     HP: 120
-    MP: 120
-    Speed: 2.5
+    MP: 150
+    Speed: 3
     RE_MP: 10
     Attack: 5
   - Type: 3
-    HP: 90
-    MP: 90
-    Speed: 3
+    HP: 120
+    MP: 120
+    Speed: 5
     RE_MP: 15
     Attack: 10

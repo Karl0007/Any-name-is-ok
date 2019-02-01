@@ -28,7 +28,7 @@ MonoBehaviour:
     CostMPType: 1
     ToosOnMap: 0
     Character: 0
-    Sprite: {fileID: 21300000, guid: 7dac9bb7c75e65e48804641dae38f528, type: 3}
+    Sprite: {fileID: 21300000, guid: 38b95fd97dfa9a545a45dad0fe18f40d, type: 3}
   - Name: "\u653B\u51FB"
     Summary: "\u5411\u4E00\u4E2A\u5355\u4F4D\u533A\u57DF\u653B\u51FB"
     Speed: 0
@@ -45,12 +45,12 @@ MonoBehaviour:
     CostMPType: 0
     ToosOnMap: 0
     Character: 1
-    Sprite: {fileID: 21300000, guid: 7dac9bb7c75e65e48804641dae38f528, type: 3}
+    Sprite: {fileID: 21300000, guid: 3dcb3c3ef4be97748bd4f66e6f0eb80b, type: 3}
   - Name: "\u51FB\u6655"
-    Summary: "\u51FB\u6655"
+    Summary: "\u51B2\u5411\u76EE\u6807 \u51FB\u6655\u76EE\u6807\u4E24\u56DE\u5408"
     Speed: 0
-    Attack: 25
-    CostMP: 15
+    Attack: 10
+    CostMP: 20
     MoveType: 1
     AttackType: 2
     Buff:
@@ -64,7 +64,7 @@ MonoBehaviour:
     Character: 1
     Sprite: {fileID: 21300000, guid: fcbb5d8c2da63fc4897b26130fa5eee7, type: 3}
   - Name: "\u9632\u5B88\u53CD\u51FB"
-    Summary: "\u9632\u5B88\u53CD\u51FB"
+    Summary: "\u514D\u75AB\u4F24\u5BB3 \u5E76\u5C06\u672C\u56DE\u5408\u53D7\u5230\u7684\u4F24\u5BB3\u53CD\u5F39\u7ED9\u5BF9\u624B"
     Speed: 2
     Attack: 0
     CostMP: 45
@@ -81,10 +81,10 @@ MonoBehaviour:
     Character: 1
     Sprite: {fileID: 21300000, guid: 8fcffdf8e68668d43badd13c7177fa62, type: 3}
   - Name: "\u6D41\u8840\u653B\u51FB"
-    Summary: "\u6D41\u8840\u653B\u51FB"
+    Summary: "\u653B\u51FB\u4F7F\u76EE\u6807\u6D41\u8840 \u6BCF\u56DE\u5408-15HP \u6301\u7EED\u4E09\u56DE\u5408"
     Speed: 0
-    Attack: 20
-    CostMP: 20
+    Attack: 10
+    CostMP: 25
     MoveType: 0
     AttackType: 2
     Buff:
@@ -98,10 +98,10 @@ MonoBehaviour:
     Character: 1
     Sprite: {fileID: 21300000, guid: 14a631e3bf600914fa3229f1e89f2856, type: 3}
   - Name: "\u77AC\u79FB"
-    Summary: "\u77AC\u79FB"
+    Summary: "\u79FB\u52A8\u5230\u5730\u56FE\u7684\u4EFB\u610F\u4F4D\u7F6E"
     Speed: 0
     Attack: 0
-    CostMP: 50
+    CostMP: 70
     MoveType: 2
     AttackType: 0
     Buff:
@@ -115,10 +115,10 @@ MonoBehaviour:
     Character: 2
     Sprite: {fileID: 21300000, guid: 2b6a3a2efafd955498fee9f2c9fcc201, type: 3}
   - Name: "\u4E0B\u6BD2"
-    Summary: "\u4E0B\u6BD2"
+    Summary: "\u7ED9\u654C\u65B9\u589E\u52A0debuff \u53EF\u4EE5\u901A\u8FC7\u6BD2\u7206\u89E6\u53D1\u9020\u6210\u4F24\u5BB3"
     Speed: 0
     Attack: 0
-    CostMP: 10
+    CostMP: 15
     MoveType: 0
     AttackType: 6
     Buff:
@@ -132,7 +132,7 @@ MonoBehaviour:
     Character: 2
     Sprite: {fileID: 21300000, guid: 83a763e538e32a24b925ae15cf1163b4, type: 3}
   - Name: "\u6BD2\u7206"
-    Summary: "\u6BD2\u7206"
+    Summary: "\u5F15\u7206debuff \u5E76\u57FA\u4E8E\u4F24\u5BB3\u56DE\u590D\u751F\u547D\u503C"
     Speed: 0
     Attack: 30
     CostMP: 0
@@ -149,10 +149,10 @@ MonoBehaviour:
     Character: 2
     Sprite: {fileID: 21300000, guid: fe666aae7bafc4645a487b795fc3e2bf, type: 3}
   - Name: "\u6CD5\u672F"
-    Summary: "\u6CD5\u672F"
+    Summary: "\u8303\u56F4\u6CD5\u672F\u4F24\u5BB3"
     Speed: 0
     Attack: 30
-    CostMP: 10
+    CostMP: 15
     MoveType: 0
     AttackType: 4
     Buff:
@@ -166,10 +166,10 @@ MonoBehaviour:
     Character: 2
     Sprite: {fileID: 21300000, guid: 101ebcd00a917bb408272a0dd3224097, type: 3}
   - Name: "\u80CC\u523A"
-    Summary: "\u80CC\u523A"
+    Summary: "\u79FB\u52A8\u5230\u76EE\u6807\u8EAB\u540E\u5E76\u653B\u51FB"
     Speed: 0
-    Attack: 40
-    CostMP: 50
+    Attack: 45
+    CostMP: 60
     MoveType: 3
     AttackType: 3
     Buff:
@@ -181,12 +181,12 @@ MonoBehaviour:
     CostMPType: 0
     ToosOnMap: 0
     Character: 3
-    Sprite: {fileID: 21300000, guid: 3dcb3c3ef4be97748bd4f66e6f0eb80b, type: 3}
+    Sprite: {fileID: 21300000, guid: ff9c440df18d39c4da17489a526605a6, type: 3}
   - Name: "\u53CC\u500D\u4F24\u5BB3"
-    Summary: "\u53CC\u500D\u4F24\u5BB3"
+    Summary: "\u4E0B\u56DE\u5408\u7684\u653B\u51FB\u5C06\u83B7\u5F97\u53CC\u500D\u4F24\u5BB3"
     Speed: 0
     Attack: 0
-    CostMP: 10
+    CostMP: 20
     MoveType: 0
     AttackType: 0
     Buff:
@@ -199,13 +199,13 @@ MonoBehaviour:
     ToosOnMap: 0
     Character: 3
     Sprite: {fileID: 21300000, guid: 899a787020d6b9b4ea0d98d1ae16dbbc, type: 3}
-  - Name: 
-    Summary: 
-    Speed: 0
-    Attack: 0
-    CostMP: 0
+  - Name: "\u7A81\u51FB"
+    Summary: "\u5411\u9762\u524D\u53D1\u8D77\u653B\u51FB"
+    Speed: 1
+    Attack: 25
+    CostMP: 15
     MoveType: 0
-    AttackType: 0
+    AttackType: 2
     Buff:
       Type: 0
       Time: 0
@@ -215,4 +215,21 @@ MonoBehaviour:
     CostMPType: 0
     ToosOnMap: 0
     Character: 0
-    Sprite: {fileID: 0}
+    Sprite: {fileID: 21300000, guid: fc41c806e6eba18439b1580d408b747b, type: 3}
+  - Name: "\u4E0D\u6B7B\u4E4B\u8EAB"
+    Summary: "2\u56DE\u5408\u4E0D\u6B7B \u56DE\u590DMP \u4E24\u56DE\u5408\u540E\u5FC5\u6B7B"
+    Speed: 0
+    Attack: 0
+    CostMP: -200
+    MoveType: 0
+    AttackType: 0
+    Buff:
+      Type: 3
+      Time: 3
+    Debuff:
+      Type: 0
+      Time: 0
+    CostMPType: 0
+    ToosOnMap: 0
+    Character: 3
+    Sprite: {fileID: 21300000, guid: 14fa75678f028f64cb0df02f457e1afe, type: 3}

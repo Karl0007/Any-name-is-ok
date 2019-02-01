@@ -10,10 +10,14 @@ public class UIManager : MonoBehaviour {
 	public GameObject[] P2Button;
 	public GameObject[] Position;
 	public GameObject Summary;
+	public GameObject Message;
+	public GameObject Priority;
 	private void Awake()
 	{
 		Instance = this;
 	}
+
+	
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +28,10 @@ public class UIManager : MonoBehaviour {
 		GameObject cv = GameObject.Find("Canvas");
 		GameObject op = GameObject.Find("SelectOper");
 		Summary = GameObject.Find("Summary");
+		Message = GameObject.Find("Message");
+		Priority = GameObject.Find("Priority");
+
+		ClearMessage();
 		for (int i = 0; i < 5; i++)
 		{
 			P1Button[i] = Instantiate(ss);
@@ -46,7 +54,7 @@ public class UIManager : MonoBehaviour {
 			Position[i].transform.parent = cv.transform;
 			Position[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			Position[i].GetComponent<OperSelect>().m_ID = i;
-			Position[i].GetComponent<UnityEngine.UI.Image>().rectTransform.localPosition = new Vector3(-375 + i*50 , -300, 0);
+			Position[i].GetComponent<UnityEngine.UI.Image>().rectTransform.localPosition = new Vector3(-420 + i*55 , 10, 0);
 		}
 		op.SetActive(false);
 		ss.SetActive(false);
@@ -99,6 +107,20 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	
+	public void ClearMessage()
+	{
+		Message.GetComponent<UnityEngine.UI.Text>().text = "";
+	}
+
+	public void AddMessage(string message)
+	{
+		Message.GetComponent<UnityEngine.UI.Text>().text += message+"\n";
+	}
+
+	public void SetPriority(Vector3 _vector)
+	{
+		Priority.transform.localPosition = _vector;
+	}
 	// Update is called once per frame
 	void Update () {
 		

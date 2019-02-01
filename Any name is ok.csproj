@@ -223,6 +223,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Epic Toon FX\Demo\ParticleEffectsShowcase\Scripts\ParticleEffectsLibrary.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\ParticleEffectsShowcase\Scripts\PEButtonScript.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\ParticleEffectsShowcase\Scripts\PEDestoryTimed.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\ParticleEffectsShowcase\Scripts\UICanvasManager.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXButtonScript.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXFireProjectile.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXLoopScript.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXMouseOrbit.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXProjectileScript.cs" />
+    <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXSceneManager.cs" />
+    <Compile Include="Assets\Epic Toon FX\Scripts\ETFXLightFade.cs" />
+    <Compile Include="Assets\Epic Toon FX\Scripts\ETFXPitchRandomizer.cs" />
+    <Compile Include="Assets\Epic Toon FX\Scripts\ETFXRotation.cs" />
+    <Compile Include="Assets\Game\Scrips\Manager\AudioManager.cs" />
+    <Compile Include="Assets\Game\Scrips\Manager\EffectManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\GameManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\InputManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\PlayerManager.cs" />
@@ -233,12 +248,16 @@
     <Compile Include="Assets\Game\Scrips\ScriptableObjects\AllSkills.cs" />
     <Compile Include="Assets\Game\Scrips\ScriptableObjects\BuffData.cs" />
     <Compile Include="Assets\Game\Scrips\ScriptableObjects\CharacterDataS.cs" />
+    <Compile Include="Assets\Game\Scrips\ScriptableObjects\Effects.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\Skill.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\SkillView.cs" />
     <Compile Include="Assets\Game\Scrips\UI\OperSelect.cs" />
     <Compile Include="Assets\Game\Scrips\UI\SkillSelect.cs" />
     <Compile Include="Assets\Game\Scrips\Utils\EnumUtils.cs" />
     <Compile Include="Assets\Game\Scrips\Utils\MData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Epic Toon FX\ETFX Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

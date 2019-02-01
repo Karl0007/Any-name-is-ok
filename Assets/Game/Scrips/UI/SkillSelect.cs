@@ -22,6 +22,15 @@ public class SkillSelect : Button {
 
 	}
 
+	void SetText(UnityEngine.UI.Text text)
+	{
+		text.text  = m_Skill.m_Skill.Name+"  \n"+ m_Skill.m_Skill.Summary+"\n";
+		text.text += "消耗体力：" + m_Skill.m_Skill.CostMP;
+		if (m_Skill.m_Skill.CostMPType == CostMPType.ByLength) text.text += "每格";
+		text.text += "\n伤害值：" + m_Skill.m_Skill.Attack;
+		text.text += "\n优先级：" + m_Skill.m_Skill.Speed;
+	}
+
 	protected override void DoStateTransition(SelectionState state, bool instant)
 	{
 		base.DoStateTransition(state, instant);
@@ -32,7 +41,7 @@ public class SkillSelect : Button {
 				gameObject.transform.localScale = new Vector3(1f,1f,1f);
 				break;
 			case SelectionState.Highlighted: //进入
-				UIManager.Instance.Summary.GetComponent<UnityEngine.UI.Text>().text = m_Skill.m_Skill.Summary;
+				SetText(UIManager.Instance.Summary.GetComponent<UnityEngine.UI.Text>());
 				UIManager.Instance.Summary.transform.position = gameObject.transform.position +  new Vector3(m_PlayerID == 0 ? 200 : -200,0, 0);
 				gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 				break;

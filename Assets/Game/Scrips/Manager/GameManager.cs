@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public int P2Skill;
 	public int P1Oper;
 	public int P2Oper;
+	public PlaySkill first, second;
 
 	public GameState m_GameState;
 	private void Awake()
@@ -17,15 +18,62 @@ public class GameManager : MonoBehaviour {
 		Instance = this;
 	}
 	// Use this for initialization
-	void Start () {
-		Debug.Log(123123);
-		PlayerManager.Instance.InitPlayerInfo(Character.Warrior, Character.Assassin);
-
+	void Start() {
+		//Debug.Log(123123);
+		PlayerManager.Instance.InitPlayerInfo(Character.Mage, Character.Assassin);
 		m_GameState = GameState.GetP1InputSkill;
 	}
-	
+
+	public delegate void PlaySkill();
+
+	void P2Play()
+	{
+		if (PlayerManager.Instance.m_Players[1].m_playerView.startplay) return;
+		//float tmpHP0 = PlayerManager.Instance.m_Players[0].m_HP;
+		//float tmpHP1 = PlayerManager.Instance.m_Players[1].m_HP;
+		PlayerManager.Instance.m_Players[1].UseSkill(P2Skill, P2Oper);
+
+		//if (PlayerManager.Instance.m_Players[1].m_Skills[P2Skill].m_Skill.MoveType == MoveType.Flash)
+		//	PlayerManager.Instance.m_Players[1].transform.position = new Vector3((PlayerManager.Instance.m_Players[1].m_Position - 7.5f), 0, 0);
+		//if (tmpHP0 > PlayerManager.Instance.m_Players[0].m_HP) PlayerManager.Instance.m_Players[0].m_playerView.Blood = true;
+		//if (tmpHP1 > PlayerManager.Instance.m_Players[1].m_HP) PlayerManager.Instance.m_Players[1].m_playerView.Blood = true;
+		//Debug.Log(tmpHP0 + "  " + PlayerManager.Instance.m_Players[0].m_HP);
+		//Debug.Log(tmpHP1 + "  " + PlayerManager.Instance.m_Players[1].m_HP);
+
+		PlayerManager.Instance.m_Players[1].m_playerView.startplay = true;
+	}
+
+	void P1Play()
+	{
+		if (PlayerManager.Instance.m_Players[0].m_playerView.startplay) return;
+		//float tmpHP0 = PlayerManager.Instance.m_Players[0].m_HP;
+		//float tmpHP1 = PlayerManager.Instance.m_Players[1].m_HP;
+		PlayerManager.Instance.m_Players[0].UseSkill(P1Skill, P1Oper);
+
+		//if (PlayerManager.Instance.m_Players[0].m_Skills[P1Skill].m_Skill.MoveType == MoveType.Flash)
+		//	PlayerManager.Instance.m_Players[0].transform.position = new Vector3((PlayerManager.Instance.m_Players[0].m_Position - 7.5f), 0, 0);
+
+		//if (tmpHP0 > PlayerManager.Instance.m_Players[0].m_HP) PlayerManager.Instance.m_Players[0].m_playerView.Blood = true;
+		//if (tmpHP1 > PlayerManager.Instance.m_Players[1].m_HP) PlayerManager.Instance.m_Players[1].m_playerView.Blood = true;
+		PlayerManager.Instance.m_Players[0].m_playerView.startplay = true;
+	}
+
 	// Update is called once per frame
 	void Update () {
+		Player[] _p = new Player[2];
+		_p[0] = PlayerManager.Instance.m_Players[0];
+		_p[1] = PlayerManager.Instance.m_Players[1];
+		if (m_GameState == GameState.GetP1InputSkill)
+		{
+			if (_p[0].m_Speed * _p[0].m_MP < _p[1].m_Speed * _p[1].m_MP)
+			{
+				UIManager.Instance.SetPriority(new Vector3(440, 270, 0));
+			}
+			else
+			{
+				UIManager.Instance.SetPriority(new Vector3(-440, 270, 0));
+			}
+		}
 		if (Input.GetMouseButton(1))
 		{
 			if (m_GameState == GameState.GetP1InputOper)
@@ -42,44 +90,117 @@ public class GameManager : MonoBehaviour {
 
 		if (m_GameState == GameState.GetResult)
 		{
-			Player[] _p = new Player[2];
-			_p[0] = PlayerManager.Instance.m_Players[0];
-			_p[1] = PlayerManager.Instance.m_Players[1];
+			UIManager.Instance.ClearMessage();
 			if (_p[0].m_Speed * _p[0].m_MP + _p[0].m_Skills[P1Skill].m_Skill.Speed * 10000 <
 				_p[1].m_Speed * _p[1].m_MP + _p[1].m_Skills[P2Skill].m_Skill.Speed * 10000)
 			{
-				PlayerManager.Instance.m_Players[1].UseSkill(P2Skill, P2Oper);
-				PlayerManager.Instance.m_Players[0].UseSkill(P1Skill, P1Oper);
+				first = P2Play;
+				second = P1Play;
+				//PlayerManager.Instance.m_Players[1].UseSkill(P2Skill, P2Oper);
+				//PlayerManager.Instance.m_Players[0].UseSkill(P1Skill, P1Oper);
 			}
 			else
 			{
-				PlayerManager.Instance.m_Players[0].UseSkill(P1Skill, P1Oper);
-				PlayerManager.Instance.m_Players[1].UseSkill(P2Skill, P2Oper);
+				first = P1Play;
+				second = P2Play;
+				//PlayerManager.Instance.m_Players[0].UseSkill(P1Skill, P1Oper);
+				//PlayerManager.Instance.m_Players[1].UseSkill(P2Skill, P2Oper);
 			}
+			m_GameState = GameState.P1Playing;
 
-			for (int i=0;i <= 1; i++)
+		}
+
+		if (m_GameState == GameState.P1Playing)
+		{
+			first();
+			debug_show();
+		}
+
+		if (m_GameState == GameState.P2Playing)
+		{
+			second();
+			debug_show();
+		}
+
+		if (m_GameState == GameState.Done)
+		{
+
+			for (int i = 0; i <= 1; i++)
 			{
-				for (int k= 0 ; k < _p[i].m_Buff.Count ; k++)
+				for (int k = 0; k < _p[i].m_Buff.Count; k++)
 				{
-					Debug.Log("P"+i+"buff " + _p[i].m_Buff[k].Type + "  "+ _p[i].m_Buff[k].Time);
-					if (--_p[i].m_Buff[k].Time <= 0) _p[i].m_Buff.Remove(_p[i].m_Buff[k]);
-					m_GameState = GameState.GetP1InputSkill;
+					Debug.Log("P" + i + "buff " + _p[i].m_Buff[k].Type + "  " + _p[i].m_Buff[k].Time);
+					if (--_p[i].m_Buff[k].Time <= 0)
+					{
+						if (_p[i].m_Buff[k].Type == Buff.CantDie) _p[i].m_HP = 0;
+						//for (int j = 0; j < _p[i].m_Buff.Count; j++)
+						//{
+						//	if (_p[i].m_Buff[j].Type == _p[i].m_Buff[k].Type)
+						//	{
+						//		_p[i].m_Buff.RemoveAt(j);
+						//	}
+						//}
+						switch (_p[i].m_Buff[k].Type)
+						{
+							case Buff.DefendAndAttack:
+								_p[i].defend.GetComponent<ParticleSystem>().Stop();
+								break;
+							case Buff.CantDie:
+								_p[i].cantdie.GetComponent<ParticleSystem>().Stop();
+								break;
+							case Buff.DoubleHarm:
+								_p[i].doubleattack.GetComponent<ParticleSystem>().Stop();
+								break;
+						}
+						_p[i].m_Buff.Remove(_p[i].m_Buff[k]);
+					}
+					//m_GameState = GameState.GetP1InputSkill;
 				}
-				for (int k = 0; k < _p[i].m_Debuff.Count; k++) 
+				for (int k = 0; k < _p[i].m_Debuff.Count; k++)
 				{
 					Debug.Log("P" + i + "DEbuff " + _p[i].m_Debuff[k].Type + "  " + _p[i].m_Debuff[k].Time);
-					if (--_p[i].m_Debuff[k].Time <= 0) _p[i].m_Debuff.Remove(_p[i].m_Debuff[k]);
-					m_GameState = GameState.GetP1InputSkill;
+					if (--_p[i].m_Debuff[k].Time <= 0)
+					{
+						for (int j = 0; j < _p[i].m_Debuff.Count; j++)
+						{
+							if (_p[i].m_Debuff[j].Type == _p[i].m_Debuff[k].Type)
+							{
+								_p[i].m_Debuff.RemoveAt(j);
+							}
+						}
+						switch (_p[i].m_Debuff[k].Type)
+						{
+							case DeBuff.Dizzy:
+								_p[i].dizzy.GetComponent<ParticleSystem>().Stop();
+								break;
+							case DeBuff.Blood:
+								_p[i].blood.GetComponent<ParticleSystem>().Stop();
+								break;
+							case DeBuff.PrePoison:
+								_p[i].poison.GetComponent<ParticleSystem>().Stop();
+								break;
+						}
+						_p[i].m_Debuff.Remove(_p[i].m_Debuff[k]);
+					}
 				}
+				m_GameState = GameState.GetP1InputSkill;
 				_p[i].m_MP += _p[i].m_MP_RE;
 				if (_p[i].m_MP > _p[i].m_MP_MAX) _p[i].m_MP = _p[i].m_MP_MAX;
 				if (_p[i].m_HP > _p[i].m_HP_MAX) _p[i].m_MP = _p[i].m_HP_MAX;
-				if (_p[i].m_HP <= 0) Debug.Log(_p[i].Opponent.m_ID+"Win");
+				if (_p[i].m_HP <= 0) //Debug.Log(_p[i].Opponent.m_ID + "Win");
+					UIManager.Instance.AddMessage("P" + (_p[i].Opponent.m_ID + 1) + "胜利！");
 			}
-
-
 			m_GameState = GameState.GetP1InputSkill;
+			if (_p[0].m_Speed * _p[0].m_MP  < _p[1].m_Speed * _p[1].m_MP)
+			{
+				UIManager.Instance.SetPriority(new Vector3(440,270,0));
+			}
+			else
+			{
+				UIManager.Instance.SetPriority(new Vector3(-440, 270, 0));
+			}
 		}
+
 		debug_show();
 	}
 

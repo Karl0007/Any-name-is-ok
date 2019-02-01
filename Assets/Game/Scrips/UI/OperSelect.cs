@@ -17,17 +17,17 @@ public class OperSelect : Button {
 	
 	public void SetColorRed()
 	{
-		gameObject.GetComponent<Image>().color = new Color(1,0,0,0.1f);
+		gameObject.GetComponent<Image>().color = new Color(1,0,0,0.5f);
 	}
 
 	public void SetColorGreen()
 	{
-		gameObject.GetComponent<Image>().color = new Color(0,1,0,0.1f);
+		gameObject.GetComponent<Image>().color = new Color(0,1,0,0.5f);
 	}
 
 	public void SetColorWhite()
 	{
-		gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 0.1f);
+		gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
 	}
 
 	protected override void DoStateTransition(SelectionState state, bool instant)
