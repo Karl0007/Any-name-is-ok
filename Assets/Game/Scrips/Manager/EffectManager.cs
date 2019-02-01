@@ -20,11 +20,13 @@ public class EffectManager : MonoBehaviour {
 		m_Effects = new Dictionary<string, GameObject>();
 		SkillEffects = new List<GameObject>();
 		BuffEffects = new List<GameObject>();
+		Debug.Log("effect ok" + all_Effects.all_Effects[1].name);
 		Init();
 		//PlaySkillEffects(new Vector3(0, 0, 0), "attack3");
 		//PlaySkillEffects(new Vector3(2, 0, 0), "attack3");
 		//PlaySkillEffects(new Vector3(4, 0, 0), "attack3");
-		Debug.Log("effect ok" + all_Effects.all_Effects[0].name);
+
+		
 	}
 
 

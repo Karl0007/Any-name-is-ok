@@ -14,6 +14,6 @@ MonoBehaviour:
   BloodData: 15
   PoisonData: 15
   DAFData: -1
-  DoubleHarmData: 2
-  HpSuckingData: 0.5
+  DoubleHarmData: 2.2
+  HpSuckingData: 0.8
   DefendData: 1

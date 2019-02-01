@@ -93,7 +93,7 @@ public class PlayerManager : MonoBehaviour {
 				m_Players[0].m_MP = m_Players[0].m_MP_MAX = i.MP;
 				m_Players[0].m_MP_RE = i.RE_MP;
 				m_Players[0].m_Speed = i.Speed;
-				m_Players[0].m_Position = 1;
+				m_Players[0].m_Position = 5;
 			}
 			if (P2 == i.Type)
 			{
@@ -104,7 +104,7 @@ public class PlayerManager : MonoBehaviour {
 				m_Players[1].m_MP = m_Players[1].m_MP_MAX = i.MP;
 				m_Players[1].m_MP_RE = i.RE_MP;
 				m_Players[1].m_Speed = i.Speed;
-				m_Players[1].m_Position = 14;
+				m_Players[1].m_Position = 10;
 			}
 		}
 		foreach (var i in m_AllSkills.SkillInfos)

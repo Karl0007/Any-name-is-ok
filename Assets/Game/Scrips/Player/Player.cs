@@ -31,12 +31,13 @@ public class Player : MonoBehaviour {
 
 
 	public Player Opponent;
-	bool INIT = false;
+	static bool INIT = false;
 
 	public void Init()
 	{
 
 		Debug.Log(EffectManager.Instance.x);
+		Debug.Log(EffectManager.Instance.m_Effects.Count);
 		dizzy = Instantiate(EffectManager.Instance.m_Effects["dizzy"]);
 		blood = Instantiate(EffectManager.Instance.m_Effects["blood"]);
 		poison = Instantiate(EffectManager.Instance.m_Effects["poison"]);
@@ -92,6 +93,7 @@ public class Player : MonoBehaviour {
 		if (!INIT)
 		{
 			Init();
+			Opponent.Init();
 		}
 		if (FindSetBuff(DeBuff.Dizzy)>0 || FindSetBuff(DeBuff.Freeze)>0)
 		{

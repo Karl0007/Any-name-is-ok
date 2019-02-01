@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-D:/寒假/unity/Any name is ok/build.exe
+D:/寒假/unity/Any name is ok/Build/build.exe
 973542d5974f9554a59e2e89f5754ada Assembly-CSharp.dll:.UICanvasManager
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 4b12dd839b2293f8457cd67cc3610b85 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -19,6 +19,7 @@ d29057dcfb9f6888e22b5bc3f21d9b38 UnityEngine.Timeline.dll:UnityEngine.Timeline.T
 904170e7328f46d45b0ebc51d829b613 Assembly-CSharp.dll:.AudioManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PEDestoryTimed
 303885442d7329386fc00ef7a96e035b Assembly-CSharp.dll:.ETFXSceneManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MP1
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -121,10 +122,11 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
-e0426b15a50d972a766b3eb080f19ba7 Assembly-CSharp.dll:.EffectManager
+728153db4c9c0e15fa3a57044506fb51 Assembly-CSharp.dll:.EffectManager
 64ca3c965e3f455810e80d575ec567bb Assembly-CSharp.dll:EpicToonFX.ETFXMouseOrbit
 cbc9c7d1f44adfb18c190b07e3788521 Assembly-CSharp.dll:EpicToonFX.ETFXLoopScript
 a6f930ac5a081243f0fe021db2dd01e1 Assembly-CSharp.dll:.GameManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.textp1p2
 8c63e780d38b3aef23afc7cf01ac2a00 Assembly-CSharp.dll:EpicToonFX.ETFXFireProjectile
 4a2472238f0558b87213fdfd686ef0d8 Assembly-CSharp.dll:EpicToonFX.ETFXRotation
 1b12c27c620b66ae6da7e73864e87677 Assembly-CSharp.dll:.MData
@@ -149,8 +151,10 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 541ec14679cc6d509594c61af28b9d4a Assembly-CSharp.dll:.CharacterDataS
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.HP1
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 307610c74784444b1dabadbf6646d5e5 Assembly-CSharp.dll:EpicToonFX.ETFXButtonScript
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MP0
 8910e2caedf59126c840494abf591a8c Assembly-CSharp.dll:.ParticleEffectsLibrary
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.PerformanceTesting.dll:UnityEngine.PerformanceTesting.TimeMeasurementScript
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
@@ -158,12 +162,17 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.HP0
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 9a6f4eeb2f6742fac025f1723d844202 Assembly-CSharp.dll:.OperSelect
 e6d602dc6b548389300df5e037136f1f Assembly-CSharp.dll:.SkillSelect
 7ff754a97722729b4d96961e46b4816e Assembly-CSharp.dll:EpicToonFX.ETFXLightFade
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SkillView
 7872df71dd3a5f73e6e33e3a218498ef Assembly-CSharp.dll:.PlayerManager
-fc2ffda023cf0cbd36daf64735d23db1 Assembly-CSharp.dll:.Player
+52b9b825edac04576f824d37b8060b27 Assembly-CSharp.dll:.Player
 3c04e61183ac48cacbd8baa609b6a611 Assembly-CSharp.dll:.PEButtonScript
 7091d7d826af280eda519363a3c9f17a Assembly-CSharp.dll:.Effects
+06f17271705ea31f75ca6bd91dfff33e Assembly-CSharp.dll:.ChooseCharacter
+476cafe6620c6949566432d67cb6e697 Assembly-CSharp.dll:.ChangeScene
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LightManager
+a880b0c19130589dcc3505d3511d78cd Assembly-CSharp.dll:.ChangeScene2

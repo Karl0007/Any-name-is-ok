@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.3f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -240,6 +242,7 @@
     <Compile Include="Assets\Game\Scrips\Manager\EffectManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\GameManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\InputManager.cs" />
+    <Compile Include="Assets\Game\Scrips\Manager\LightManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\PlayerManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\SkillManager.cs" />
     <Compile Include="Assets\Game\Scrips\Manager\UIManager.cs" />
@@ -251,8 +254,16 @@
     <Compile Include="Assets\Game\Scrips\ScriptableObjects\Effects.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\Skill.cs" />
     <Compile Include="Assets\Game\Scrips\Skill\SkillView.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\ChangeScene2.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\ChangeScene.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\ChooseCharacter.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\HP0.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\HP1.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\MP0.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\MP1.cs" />
     <Compile Include="Assets\Game\Scrips\UI\OperSelect.cs" />
     <Compile Include="Assets\Game\Scrips\UI\SkillSelect.cs" />
+    <Compile Include="Assets\Game\Scrips\UI\textp1p2.cs" />
     <Compile Include="Assets\Game\Scrips\Utils\EnumUtils.cs" />
     <Compile Include="Assets\Game\Scrips\Utils\MData.cs" />
   </ItemGroup>

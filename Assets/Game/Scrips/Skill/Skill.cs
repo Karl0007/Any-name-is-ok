@@ -194,7 +194,7 @@ public class Skill : MonoBehaviour
 	{
 		//BuffClass tmp = new BuffClass();
 		//tmp = m_Skill.Buff;
-		if (m_Skill.Buff.Type != Buff.None)User.m_Buff.Add(m_Skill.Buff.Clone()); //克隆buff？？
+		if (m_Skill.Buff.Type != Buff.None && User.Opponent.FindSetBuff(m_Skill.Buff.Type) == 0)User.m_Buff.Add(m_Skill.Buff.Clone()); //克隆buff？？
 		switch (m_Skill.Buff.Type)
 		{
 			case Buff.CantDie:
@@ -335,7 +335,8 @@ public class Skill : MonoBehaviour
 			case DeBuff.PrePoison:
 				//DebuffClass tmp = new DebuffClass();
 				//tmp = m_Skill.Debuff;
-				User.Opponent.m_Debuff.Add(m_Skill.Debuff.Clone()); //克隆buff？？
+				if (User.Opponent.FindSetBuff(m_Skill.Debuff.Type)==0)
+					User.Opponent.m_Debuff.Add(m_Skill.Debuff.Clone()); //克隆buff？？
 				break;
 			case DeBuff.Poison:
 				break;

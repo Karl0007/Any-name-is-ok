@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EnumUtils;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+	//public Character P1 = Character.Assassin;
+	//public Character P2 = Character.Mage;
 	public static GameManager Instance;
 	public int P1Skill;
 	public int P2Skill;
@@ -20,8 +23,16 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		//Debug.Log(123123);
-		PlayerManager.Instance.InitPlayerInfo(Character.Mage, Character.Assassin);
+		//PlayerManager.Instance.InitPlayerInfo(Character.Assassin, Character.Mage);
+		PlayerManager.Instance.InitPlayerInfo(ChangeScene.Instance.P1, ChangeScene.Instance.P2);
 		m_GameState = GameState.GetP1InputSkill;
+
+	}
+
+	void StartGame()
+	{
+		//PlayerManager.Instance.InitPlayerInfo(P1, P2);
+		//m_GameState = GameState.GetP1InputSkill;
 	}
 
 	public delegate void PlaySkill();
@@ -60,6 +71,7 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
 		Player[] _p = new Player[2];
 		_p[0] = PlayerManager.Instance.m_Players[0];
 		_p[1] = PlayerManager.Instance.m_Players[1];
@@ -113,13 +125,13 @@ public class GameManager : MonoBehaviour {
 		if (m_GameState == GameState.P1Playing)
 		{
 			first();
-			debug_show();
+			//debug_show();
 		}
 
 		if (m_GameState == GameState.P2Playing)
 		{
 			second();
-			debug_show();
+			//debug_show();
 		}
 
 		if (m_GameState == GameState.Done)
@@ -132,14 +144,6 @@ public class GameManager : MonoBehaviour {
 					Debug.Log("P" + i + "buff " + _p[i].m_Buff[k].Type + "  " + _p[i].m_Buff[k].Time);
 					if (--_p[i].m_Buff[k].Time <= 0)
 					{
-						if (_p[i].m_Buff[k].Type == Buff.CantDie) _p[i].m_HP = 0;
-						//for (int j = 0; j < _p[i].m_Buff.Count; j++)
-						//{
-						//	if (_p[i].m_Buff[j].Type == _p[i].m_Buff[k].Type)
-						//	{
-						//		_p[i].m_Buff.RemoveAt(j);
-						//	}
-						//}
 						switch (_p[i].m_Buff[k].Type)
 						{
 							case Buff.DefendAndAttack:
@@ -152,7 +156,15 @@ public class GameManager : MonoBehaviour {
 								_p[i].doubleattack.GetComponent<ParticleSystem>().Stop();
 								break;
 						}
-						_p[i].m_Buff.Remove(_p[i].m_Buff[k]);
+						if (_p[i].m_Buff[k].Type == Buff.CantDie) _p[i].m_HP = 0;
+						for (int j = 0; j < _p[i].m_Buff.Count; j++)
+						{
+							if (_p[i].m_Buff[j].Type == _p[i].m_Buff[k].Type)
+							{
+								_p[i].m_Buff.RemoveAt(j);
+							}
+						}
+						//_p[i].m_Buff.Remove(_p[i].m_Buff[k]);
 					}
 					//m_GameState = GameState.GetP1InputSkill;
 				}
@@ -161,13 +173,6 @@ public class GameManager : MonoBehaviour {
 					Debug.Log("P" + i + "DEbuff " + _p[i].m_Debuff[k].Type + "  " + _p[i].m_Debuff[k].Time);
 					if (--_p[i].m_Debuff[k].Time <= 0)
 					{
-						for (int j = 0; j < _p[i].m_Debuff.Count; j++)
-						{
-							if (_p[i].m_Debuff[j].Type == _p[i].m_Debuff[k].Type)
-							{
-								_p[i].m_Debuff.RemoveAt(j);
-							}
-						}
 						switch (_p[i].m_Debuff[k].Type)
 						{
 							case DeBuff.Dizzy:
@@ -180,15 +185,26 @@ public class GameManager : MonoBehaviour {
 								_p[i].poison.GetComponent<ParticleSystem>().Stop();
 								break;
 						}
-						_p[i].m_Debuff.Remove(_p[i].m_Debuff[k]);
+						for (int j = 0; j < _p[i].m_Debuff.Count; j++)
+						{
+							if (_p[i].m_Debuff[j].Type == _p[i].m_Debuff[k].Type)
+							{
+								_p[i].m_Debuff.RemoveAt(j);
+							}
+						}
+						//_p[i].m_Debuff.Remove(_p[i].m_Debuff[k]);
 					}
 				}
 				m_GameState = GameState.GetP1InputSkill;
 				_p[i].m_MP += _p[i].m_MP_RE;
 				if (_p[i].m_MP > _p[i].m_MP_MAX) _p[i].m_MP = _p[i].m_MP_MAX;
 				if (_p[i].m_HP > _p[i].m_HP_MAX) _p[i].m_MP = _p[i].m_HP_MAX;
-				if (_p[i].m_HP <= 0) //Debug.Log(_p[i].Opponent.m_ID + "Win");
+				if (_p[i].m_HP <= 0)
+				{//Debug.Log(_p[i].Opponent.m_ID + "Win");
 					UIManager.Instance.AddMessage("P" + (_p[i].Opponent.m_ID + 1) + "胜利！");
+					ChangeScene2.Instance.Winer = "P" + (_p[i].Opponent.m_ID + 1) + "Win";
+					SceneManager.LoadScene("begin");
+				}
 			}
 			m_GameState = GameState.GetP1InputSkill;
 			if (_p[0].m_Speed * _p[0].m_MP  < _p[1].m_Speed * _p[1].m_MP)

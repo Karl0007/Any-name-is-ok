@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EnumUtils;
+using UnityEngine.SceneManagement;
 
 public class PlayerView : MonoBehaviour {
 
@@ -37,6 +38,16 @@ public class PlayerView : MonoBehaviour {
 				GameManager.Instance.m_GameState = GameState.P2Playing;
 				startplay = false;
 				Blood = false;
+				if (PlayerManager.Instance.m_Players[1].m_HP <= 0)
+				{
+					ChangeScene2.Instance.Winer = "P1 Win";
+					SceneManager.LoadScene("begin");
+				}
+				if (PlayerManager.Instance.m_Players[0].m_HP <= 0)
+				{
+					ChangeScene2.Instance.Winer = "P2 Win";
+					SceneManager.LoadScene("begin");
+				}
 			}
 			else if (GameManager.Instance.m_GameState == GameState.P2Playing && startplay && !AudioManager.Instance.Effect.isPlaying)
 			{
@@ -44,6 +55,16 @@ public class PlayerView : MonoBehaviour {
 				GameManager.Instance.m_GameState = GameState.Done;
 				startplay = false;
 				Blood = false;
+				if (PlayerManager.Instance.m_Players[0].m_HP <= 0)
+				{
+					ChangeScene2.Instance.Winer = "P2 Win";
+					SceneManager.LoadScene("begin");
+				}
+				if (PlayerManager.Instance.m_Players[1].m_HP <= 0)
+				{
+					ChangeScene2.Instance.Winer = "P1 Win";
+					SceneManager.LoadScene("begin");
+				}
 			}
 
 		}
